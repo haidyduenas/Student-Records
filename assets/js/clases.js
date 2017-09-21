@@ -1,15 +1,23 @@
 'use strict';
-let laboratorians =[];
 
-function addStudent() {
-     let person = { 
-     name:prompt("Nombre :","Nombres y Aprellido");
-     pTe:prompt("Porcentaje Tecnico : ");
-     hse:prompt("Porcentaje Habilidades Socio Emocionales");
-     };
-
-     laboratorians.push(persona);
-     let infoStudent =`<div class='row'>\
+class Applab{
+    constructor(){
+        this.laboratorians = [];
+    }
+    setup(){
+        $('#addStudent').on('click',this.addStudent);
+        $('#printAll').on('click',this.printAll);
+        $('#updateDropOut').on('click',this.updateDropOut);
+        $('#runEmployability').on('click',this.runEmployability);
+    }
+    addStudent(){
+        console.log("hola")
+        let name = prompt("Nombre de la estudiante:");
+        let pTec = prompt("Puntaje técnico:");
+        let hse = prompt("Puntaje HSE:");
+        this.laboratorians.push({name:name,pTec:pt,hse:hse});
+        $('#contStudent').empty();
+        let infoStudent =`<div class='row'>\
                         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 '>\
                             <div class='spacesDatos'>\
                                 <div class='card-content white-text'>\
@@ -20,11 +28,10 @@ function addStudent() {
                             </div>\
                         </div>\
                         </div>\ `
-    $('#contStudent').empty();
-    $('#contStudent').append(infoStudent);
-}
-
-function printAll() {
+        $('#contStudent').append(infoStudent);
+    }
+    
+    printAll(){
     $('#contStudent').empty();
     laboratorians.map(function(person){
     $('#contStudent').append(`<div class='row'>\
@@ -39,28 +46,20 @@ function printAll() {
                         </div>\
                         </div>\ `);
     });
-
+    }
+    updateDropout(){
+        this.laboratorians = this.laboratorians.filter(function(person){
+            return (parseInt(person.ptj)+parseInt(person.hse))/2 >= 70;
+        });
+        this.printAll(this.laboratorians);
+    }
+    run(){
+        this.laboratorians = this.laboratorians.filter(function(person){
+            return (parseInt(person.ptj)+parseInt(person.hse))/2 >= 70;
+        });
+        this.printAll(this.laboratorians);
+    }
 }
+let firstLab = new  Applab;
 
-function updateDropOut(e){
-    laboratorians = laboratorians.filter(function(person){
-       return (parseInt(person.pTe) + parseInt(person.hse))/2 >= 70 ; 
-    });
-    printAll(laboratorians);
-    //estudiantes.map(aplicacion.mostrar)
-}
-function runEmployability(e){
-    laboratorians = laboratorians.filter(function(person){
-       return (parseInt(person.pTe) + parseInt(person.hse))/2 >= 70 ; 
-    });
-    printAll(laboratorians);
- }
-
-function btnInit (){
-    $('#addStudent').on('click',addStudent);
-    $('#printAll').on('click',printAll);
-    $('#updateDropOut').on('click',updateDropOut);
-    $('#runEmployability').on('click',runEmployability);
-}
-
-$(document).ready(btnInit);
+$(document).ready(firstLab);
