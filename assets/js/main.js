@@ -53,17 +53,15 @@ function printAll() {
 function updateDropOut(){
     console.log('hola');
     laboratorians = laboratorians.filter(function(persona){
-       res = (parseInt(persona.pTe) + parseInt(persona.hse))/2 <= 70 ; 
-       return res;
+       return (parseInt(persona.pTe) + parseInt(persona.hse))/2 >= 70 ; 
     });
-    console.log (res);
-    console.log (lab);
-    printAll(lab);
+    printAll(laboratorians);
  }
+
 function runEmployability(){
     console.log('hola');
     lab = laboratorians.filter(function(persona){
-       res = (parseInt(persona.pTe) + parseInt(persona.hse))/2 <= 70 ; 
+       res = (parseInt(persona.pTe) + parseInt(persona.hse))/2 >= 70 ; 
        return res;
     });
     printAll(lab);
